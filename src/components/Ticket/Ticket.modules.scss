@@ -1,0 +1,54 @@
+.ticket {
+  min-width: 502px;
+  max-width: 100%;
+  min-height: 184px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.ticket-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .ticket-body {
+  }
+}
+
+.ticket-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .ticket-price {
+    font-size: 24px;
+    color: #2196f3;
+  }
+}
+
+.ticket-flights {
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-flight {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  font-size: 14px;
+
+  // >* {
+  //     text-align: center;
+  // }
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .ticket-info-title {
+    margin-bottom: 5px;
+    color: #a0b0b9;
+    font-weight: 400;
+    font-size: 12px;
+  }
+}

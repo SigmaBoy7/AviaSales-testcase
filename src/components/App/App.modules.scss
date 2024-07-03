@@ -1,0 +1,44 @@
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #f3f7fa;
+}
+
+.wrapper {
+  max-width: 100%;
+  min-width: 754px;
+  margin: 0 auto;
+}
+
+.app-header {
+  margin-bottom: 50px;
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+}
+
+.body {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
