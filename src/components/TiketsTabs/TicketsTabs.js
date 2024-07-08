@@ -11,7 +11,6 @@ export default function TicketsTabs() {
   function handleClickTab(e) {
     dispatch(toggleTab(e.target.value));
   }
-  console.log(activeTabaSelector);
 
   return (
     <div className="tickets-tabs">
