@@ -16,8 +16,22 @@ export const ticketsTabsSlice = createSlice({
     },
   },
 });
-export const selectActiveTab = (state) => {
+export const selectAllTab = (state) => {
   return state.ticketsTabs;
+};
+
+export const selectActiveTab = (state) => {
+  const { economyTab, fastTab, optimumTab } = state.ticketsTabs;
+
+  if (economyTab) {
+    return 'economyTab';
+  } else if (fastTab) {
+    return 'fastTab';
+  } else if (optimumTab) {
+    return 'optimumTab';
+  } else {
+    return null; // No active tab
+  }
 };
 
 export const { toggleTab } = ticketsTabsSlice.actions;

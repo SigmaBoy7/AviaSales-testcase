@@ -56,17 +56,9 @@ function TicketsList({ currentTicketsPage, setCurrentTicketsPage }) {
   useEffect(() => {
     let sortedTickets = [...filteredTickets]; // Создаем копию массива, чтобы не мутировать исходный
 
-    let activeTab;
-    for (let i in activeTabSelector) {
-      if (activeTabSelector[i] === true) {
-        activeTab = i;
-      }
-    }
-
-    switch (activeTab) {
+    switch (activeTabSelector) {
       case 'economyTab':
         sortedTickets = sortedTickets.sort((a, b) => a.price - b.price);
-        console.log(sortedTickets);
         break;
       case 'fastTab':
         sortedTickets = sortedTickets.sort(
