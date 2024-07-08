@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable indent */
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 // eslint-disable-next-line import/order
 import Ticket from '../Ticket';
 import MoreTicketButton from '../MoreTicketsButton';
 import { fetchFirstChapterTickets, fetchAllTickets, selectAllTickets } from '../../features/Tickets/ticketsPostSlice';
 import { selectFilters } from '../../features/TicketFilters/filtersCheckboxesSlice';
+import { selectActiveTab } from '../../features/TicketsTabs/ticketsTabs';
 
 import './TicketsList.modules.scss';
 
@@ -43,27 +46,40 @@ function TicketsList({ currentTicketsPage, setCurrentTicketsPage }) {
   const dispatch = useDispatch();
   const tickets = useSelector(selectAllTickets);
   const filters = useSelector(selectFilters);
+  const activeTabSelector = useSelector(selectActiveTab);
   const postStatus = useSelector((state) => state.ticketsPost.status);
 
-  useEffect(() => {
-    const filteredTickets = tickets.filter((item) => passesFilters(item, filters));
-    const curentTicketCount = currentTicketsPage * 5;
-    if (tickets.length) {
-      setCurrentTickets(() => {
-        return filteredTickets.slice(0, curentTicketCount);
-      });
-    }
-  }, [currentTicketsPage, tickets, filters]);
+  const filteredTickets = useMemo(() => {
+    return tickets.filter((item) => passesFilters(item, filters));
+  }, [tickets, filters]);
 
   useEffect(() => {
-    const filteredTickets = tickets.filter((item) => passesFilters(item, filters));
-    const curentTicketCount = 1 * 5;
-    if (tickets.length) {
-      setCurrentTickets(() => {
-        return filteredTickets.slice(0, curentTicketCount);
-      });
+    let sortedTickets = [...filteredTickets]; // Создаем копию массива, чтобы не мутировать исходный
+
+    let activeTab;
+    for (let i in activeTabSelector) {
+      if (activeTabSelector[i] === true) {
+        activeTab = i;
+      }
     }
-  }, [tickets]);
+
+    switch (activeTab) {
+      case 'economyTab':
+        sortedTickets = sortedTickets.sort((a, b) => a.price - b.price);
+        console.log(sortedTickets);
+        break;
+      case 'fastTab':
+        sortedTickets = sortedTickets.sort(
+          (a, b) => a.segments[0].duration + a.segments[1].duration - (b.segments[0].duration + b.segments[1].duration)
+        );
+        break;
+      default:
+        break;
+    }
+
+    const curentTicketCount = currentTicketsPage * 5;
+    setCurrentTickets(sortedTickets.slice(0, curentTicketCount));
+  }, [currentTicketsPage, filteredTickets, activeTabSelector]);
 
   useEffect(() => {
     async function getTickets() {
@@ -81,7 +97,7 @@ function TicketsList({ currentTicketsPage, setCurrentTicketsPage }) {
       {postStatus === 'loading' ? <div className="loader"></div> : null}
       {currentTickets.length ? (
         currentTickets.map((data) => {
-          return <Ticket className="ticket" key={`${data.price} ${data.carrier}`} data={data} />;
+          return <Ticket className="ticket" key={uuidv4()} data={data} />;
         })
       ) : (
         <div className="tickets-alert">Рейсов, подходящих под заданные фильтры, не найдено</div>

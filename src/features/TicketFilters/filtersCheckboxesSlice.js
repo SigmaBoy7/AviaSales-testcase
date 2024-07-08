@@ -9,11 +9,11 @@ const changeAllCkeckboxStatus = function (state, status) {
 export const filtersCheckboxesSlice = createSlice({
   name: 'filtersCheckboxes',
   initialState: {
-    isAllFilter: true,
-    isNoTransferFilter: true,
+    isAllFilter: false,
+    isNoTransferFilter: false,
     isOneTransfer: true,
-    isTwoTransfer: true,
-    isThreeTransfer: true,
+    isTwoTransfer: false,
+    isThreeTransfer: false,
   },
   reducers: {
     toggleCheckbox: (state, action) => {

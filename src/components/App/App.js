@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createSearchSession } from '../../apiWorker/apiWorker';
 import TicketFilters from '../TicketsFilters';
 import TicketsList from '../TicketsList';
+import TicketsTabs from '../TiketsTabs';
 // eslint-disable-next-line import/no-named-as-default
 import store from '../../store/store';
 
@@ -36,7 +37,10 @@ function App() {
           </header>
           <div className="body">
             <TicketFilters />
-            <TicketsList currentTicketsPage={currentTicketsPage} setCurrentTicketsPage={setCurrentTicketsPage} />
+            <div className="tickets-body">
+              <TicketsTabs />
+              <TicketsList currentTicketsPage={currentTicketsPage} setCurrentTicketsPage={setCurrentTicketsPage} />
+            </div>
           </div>
         </Provider>
       </div>

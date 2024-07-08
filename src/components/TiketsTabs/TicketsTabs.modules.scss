@@ -1,0 +1,31 @@
+.tickets-tabs {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    max-width: 502px;
+    margin-bottom: 20px;
+    border: 1px solid #DFE5EC;
+    background-color: white;
+}
+
+.tabs-button {
+    width: 100%;
+    text-wrap: nowrap;
+    padding: 15px 0px;
+    border: none;
+    background-color: white;
+    text-transform: uppercase;
+}
+
+.tabs-button:hover {
+    background-color: #2196F3;
+    color: white;
+}
+
+.tabs-button__active {
+    background-color: #2196F3;
+    color: white;
+}
+
+.tabs-button:not(:last-child) {
+    border-right: 1px solid #DFE5EC;
+}
